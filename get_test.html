@@ -1,0 +1,39 @@
+<!doctype html>
+	<head>
+		<title>
+			JQuery AJAX GET test
+		</title>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	</head>
+	<body>
+		<input type="text" name="userName" id="userName" />
+		<label name="isValid" id="isValid">Go on, type something to see if it's valid...</label>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$("#userName").keyup(function() {
+					if($("#userName").val().length > 0) {
+						$.ajax({
+							url: "process_me.html",
+							type: "GET",
+							data: {"username": $("#userName").val()},
+							dataType: "text",
+							success: function(data) {
+								if(data === "true")
+								{
+									$("#isValid").html("Yay, it's valid!");
+								} else {
+									$("#isValid").html("Nope, not valid :(");
+								}
+							},
+							error: function (xhr, status) {
+								alert(status);
+							}
+						});
+					} else {
+						$("#isValid").html('Go on, type something to see if it\'s valid...');
+					}
+				});
+			})
+		</script>
+	</body>
+</html>
